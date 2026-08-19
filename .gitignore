@@ -3,9 +3,12 @@
 
 # Environment files
 **/.env
+**/.env.*
+!.env.example
 
-# React Build
+# Build
 client/dist/
+server/dist/
 
 # Logs
 *.log
@@ -17,5 +20,5 @@ Thumbs.db
 # VS Code
 .vscode/
 
-# Optional
+# Coverage
 coverage/
