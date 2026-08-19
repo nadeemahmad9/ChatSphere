@@ -182,7 +182,7 @@ app.use(express.json());
 // =========================
 // Port
 // =========================
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 // =========================
 // Basic Route
