@@ -27,6 +27,8 @@ const ProfilePanel = ({ onClose }) => {
         setBio(user?.bio || "");
     }, [user]);
 
+    const navigate = useNavigate();
+
     const handleLogout = async () => {
         const data = await logout();
 
