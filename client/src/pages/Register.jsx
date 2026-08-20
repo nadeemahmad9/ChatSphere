@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { User, Mail, Lock, UserPlus } from "lucide-react";
+import { register } from "../services/authService";
 
 export const Register = () => {
     const [formData, setFormData] = useState({
@@ -18,10 +19,21 @@ export const Register = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(formData);
+        if (formData.password !== formData.confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        const result = await register({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+        });
+
+        console.log("Register Response:", result);
     };
 
     return (
