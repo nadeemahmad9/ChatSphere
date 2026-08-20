@@ -259,6 +259,7 @@ import {
     UserRound,
     LogOut,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useMemo, useState, useContext } from "react";
 import SidebarItem from "./SidebarItem";
 import { useChat } from "../../context/ChatContext";
@@ -267,6 +268,7 @@ import { AuthContext } from "../../context/AuthContext";
 const Sidebar = ({ onOpenProfile }) => {
     const { users, onlineUsers } = useChat();
     const { logout } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -323,7 +325,10 @@ const Sidebar = ({ onOpenProfile }) => {
 
                     <button
                         type="button"
-                        onClick={logout}
+                        onClick={async () => {
+                            await logout();
+                            navigate("/", { replace: true });
+                        }}
                         className="flex h-10 w-10 items-center justify-center rounded-full text-slate-400 transition-all duration-200 hover:bg-red-500/10 hover:text-red-400 active:scale-95"
                         title="Logout"
                         aria-label="Logout"
