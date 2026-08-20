@@ -171,7 +171,7 @@ initializeSocket(server);
 // =========================
 app.use(
     cors({
-        origin: "https://chat-lynk.netlify.app/",
+        origin: "https://chat-lynk.netlify.app",
         credentials: true,
     })
 );
