@@ -29,19 +29,23 @@ function App() {
   }, []);
 
   const { user, loading, isAuthenticated } = useContext(AuthContext)
-  console.log("USER:", user);
-  console.log("Loading:", loading);
-  console.log("Authenticated:", isAuthenticated);
+  // console.log("USER:", user);
+  // console.log("Loading:", loading);
+  // console.log("Authenticated:", isAuthenticated);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        }
+        {/* ========================= PUBLIC LANDING PAGE ========================= */}
+        <Route
+          path="/"
+          element={
+            <PublicRoute>
+              <AuthLanding />
+            </PublicRoute>
+          }
         />
+        {/* ========================= LOGIN ========================= */}
         <Route
           path="/login"
           element={
@@ -50,7 +54,7 @@ function App() {
             </PublicRoute>
           }
         />
-
+        {/* ========================= REGISTER ========================= */}
         <Route
           path="/register"
           element={
@@ -59,6 +63,14 @@ function App() {
             </PublicRoute>
           }
         />
+        {/* ========================= PROTECTED HOME ========================= */}
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          } />
       </Routes>
     </BrowserRouter>
   );

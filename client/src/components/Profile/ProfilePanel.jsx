@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
     ArrowLeft,
     Camera,
@@ -27,7 +28,11 @@ const ProfilePanel = ({ onClose }) => {
     }, [user]);
 
     const handleLogout = async () => {
-        await logout();
+        const data = await logout();
+
+        if (data.success) {
+            navigate("/");
+        }
     };
 
     // =========================

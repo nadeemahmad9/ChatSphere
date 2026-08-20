@@ -93,7 +93,7 @@ export const Login = () => {
             const data = await login(formData);
 
             if (data.success) {
-                navigate("/");
+                navigate("/home");
             } else {
                 alert(data.message);
             }
