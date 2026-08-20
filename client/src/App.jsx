@@ -46,6 +46,13 @@ function App() {
             </PublicRoute>
           }
         />
+
+        {/* ========================= Mobile Login ========================= */}
+
+        <Route
+          path="/mobile-login"
+          element={<div>Mobile Login Coming Soon</div>}
+        />
         {/* ========================= LOGIN ========================= */}
         <Route
           path="/login"
