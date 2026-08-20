@@ -7,6 +7,7 @@ import { Register } from "./pages/Register";
 import { AuthContext } from "./context/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { PublicRoute } from "./components/PublicRoute";
+import { AuthLanding } from "./pages/AuthLanding";
 
 function App() {
 
