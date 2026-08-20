@@ -1,6 +1,8 @@
+const API_URL = `${import.meta.env.VITE_API_URL}/api/message`;
+
 export const fetchMessages = async (receiverId) => {
     try {
-        const response = await fetch(`/api/message/${receiverId}`,
+        const response = await fetch(`${API_URL}/${receiverId}`,
             {
                 method: "GET",
                 credentials: "include",
@@ -24,7 +26,7 @@ export const fetchMessages = async (receiverId) => {
 export const sendMessageApi = async (receiverId, messageData) => {
     try {
         const response = await fetch(
-            `/api/message/${receiverId}`,
+            `${API_URL}/${receiverId}`,
             {
                 method: "POST",
 
@@ -64,7 +66,7 @@ console.log("Reply To:", data.message?.replyTo);
 
 export const markMessagesAsSeenApi = async (senderId)=>{
     try {
-        const response = await fetch(`/api/message/seen/${senderId}`,
+        const response = await fetch(`${API_URL}/seen/${senderId}`,
             {
                 method: "PATCH",
                 credentials: "include",
@@ -88,7 +90,7 @@ export const deleteMessageForEveryone = async (
 ) => {
     try {
         const response = await fetch(
-            `/api/message/delete/${messageId}`,
+            `${API_URL}/delete/${messageId}`,
             {
                 method: "DELETE",
                 credentials: "include",
@@ -113,7 +115,7 @@ export const deleteMessageForEveryone = async (
 export const deleteMessageForMe = async (messageId) => {
     try {
         const response = await fetch(
-            `/api/message/delete-for-me/${messageId}`,
+            `${API_URL}/delete-for-me/${messageId}`,
             {
                 method: "DELETE",
                 credentials: "include",
@@ -148,7 +150,7 @@ return {
 export const reactToMessageApi = async (messageId, emoji) => {
         try {
             const response = await fetch(
-                `/api/message/react/${messageId}`,
+                `${API_URL}/react/${messageId}`,
                 {
                     method: "PATCH",
                     credentials: "include",

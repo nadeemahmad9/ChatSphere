@@ -1,5 +1,5 @@
 
-const API_URL = "http://localhost:3000/api/auth";
+const API_URL = `${import.meta.env.VITE_API_URL}/api/auth`;
 
 export const register = async (userData) => {
     const response = await fetch(`${API_URL}/register`, {
@@ -84,7 +84,7 @@ export const updateProfilePicture = async (file) => {
         formData.append("profilePic", file);
 
         const response = await fetch(
-            "/api/auth/profile/picture",
+            `${API_URL}/profile/picture`,
             {
                 method: "PUT",
                 credentials: "include",
