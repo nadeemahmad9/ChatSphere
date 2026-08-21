@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useChat } from "../../context/ChatContext";
 import {
     ArrowLeft,
@@ -13,6 +13,8 @@ const ChatHeader = () => {
         onlineUsers,
         setSelectedUser,
     } = useChat();
+
+    const [showMenu, setShowMenu] = useState(false);
 
     const isOnline = onlineUsers.includes(selectedUser?._id);
 
@@ -213,29 +215,154 @@ const ChatHeader = () => {
                 </button>
 
                 {/* More Options */}
-                <button
-                    type="button"
-                    className="
-                        flex
-                        h-10
-                        w-10
-                        items-center
-                        justify-center
-                        rounded-full
-                        text-slate-400
-                        transition-all
-                        duration-200
-                        hover:bg-slate-800
-                        hover:text-white
-                        active:scale-95
-                    "
-                    aria-label="More Options"
-                >
-                    <MoreVertical
-                        size={21}
-                        strokeWidth={2}
-                    />
-                </button>
+                {/* More Options */}
+                <div className="relative">
+                    <button
+                        type="button"
+                        onClick={() => setShowMenu((prev) => !prev)}
+                        className="
+            flex
+            h-10
+            w-10
+            items-center
+            justify-center
+            rounded-full
+            text-slate-400
+            transition-all
+            duration-200
+            hover:bg-slate-800
+            hover:text-white
+            active:scale-95
+        "
+                        aria-label="More Options"
+                    >
+                        <MoreVertical
+                            size={21}
+                            strokeWidth={2}
+                        />
+                    </button>
+
+                    {/* Dropdown */}
+                    {showMenu && (
+                        <div
+                            className="
+                absolute
+                right-0
+                top-12
+                z-50
+                w-52
+                overflow-hidden
+                rounded-xl
+                border
+                border-slate-700
+                bg-slate-900
+                py-1
+                shadow-2xl
+                shadow-black/40
+            "
+                        >
+                            {/* Search Messages */}
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    console.log("Search Messages clicked");
+                                    setShowMenu(false);
+                                }}
+                                className="
+                    flex
+                    w-full
+                    items-center
+                    gap-3
+                    px-4
+                    py-3
+                    text-left
+                    text-sm
+                    text-slate-200
+                    transition-colors
+                    hover:bg-slate-800
+                "
+                            >
+                                🔍
+                                <span>Search messages</span>
+                            </button>
+
+                            {/* Mute */}
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    console.log("Mute notifications clicked");
+                                    setShowMenu(false);
+                                }}
+                                className="
+                    flex
+                    w-full
+                    items-center
+                    gap-3
+                    px-4
+                    py-3
+                    text-left
+                    text-sm
+                    text-slate-200
+                    transition-colors
+                    hover:bg-slate-800
+                "
+                            >
+                                🔔
+                                <span>Mute notifications</span>
+                            </button>
+
+                            {/* Clear Chat */}
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    console.log("Clear chat clicked");
+                                    setShowMenu(false);
+                                }}
+                                className="
+                    flex
+                    w-full
+                    items-center
+                    gap-3
+                    px-4
+                    py-3
+                    text-left
+                    text-sm
+                    text-slate-200
+                    transition-colors
+                    hover:bg-slate-800
+                "
+                            >
+                                🗑️
+                                <span>Clear chat</span>
+                            </button>
+
+                            {/* Block */}
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    console.log("Block user clicked");
+                                    setShowMenu(false);
+                                }}
+                                className="
+                    flex
+                    w-full
+                    items-center
+                    gap-3
+                    px-4
+                    py-3
+                    text-left
+                    text-sm
+                    text-red-400
+                    transition-colors
+                    hover:bg-slate-800
+                "
+                            >
+                                🚫
+                                <span>Block user</span>
+                            </button>
+                        </div>
+                    )}
+                </div>
 
             </div>
 
