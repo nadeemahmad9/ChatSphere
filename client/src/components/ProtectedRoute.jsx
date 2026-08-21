@@ -6,12 +6,11 @@ export const ProtectedRoute = ({ children }) => {
 
     const { loading, isAuthenticated } = useContext(AuthContext);
 
-    console.log("🔥 PROTECTED ROUTE RENDERED", {
+    console.log("🔥 PROTECTED ROUTE:", {
+        path: window.location.pathname,
         loading,
         isAuthenticated,
-        path: window.location.pathname,
-        children,
-    })
+    });
 
     if (loading) {
         return <h1>Loading...</h1>;

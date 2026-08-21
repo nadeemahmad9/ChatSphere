@@ -54,7 +54,8 @@ export const AuthProvider = ({ children }) => {
             }
         } catch (error) {
             console.error(error);
-
+            setUser(null);
+            setIsAuthenticated(false);
             return {
                 success: false,
                 message: "Something went wrong"

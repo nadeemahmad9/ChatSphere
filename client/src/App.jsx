@@ -31,9 +31,8 @@ function App() {
       <Route
         path="/"
         element={
-          <PublicRoute>
-            <AuthLanding />
-          </PublicRoute>
+
+          <AuthLanding />
         }
       />
 
