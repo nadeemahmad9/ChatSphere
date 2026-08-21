@@ -6,7 +6,7 @@ export const ProtectedRoute = ({ children }) => {
 
     const { loading, isAuthenticated } = useContext(AuthContext);
 
-    console.trace("🔥 PROTECTED ROUTE CALLED", {
+    console.log("🔥 PROTECTED ROUTE SOURCE", {
         path: window.location.pathname,
         loading,
         isAuthenticated,
