@@ -64,6 +64,43 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    // const logout = async () => {
+    //     try {
+    //         if (socket.connected) {
+    //             socket.disconnect();
+    //         }
+
+    //         const data = await logoutService();
+
+    //         console.log("LOGOUT RESPONSE:", data);
+
+    //         if (data.success) {
+
+    //             navigate("/", { replace: true });
+
+    //             setUser(null);
+    //             setIsAuthenticated(false);
+    //             setOnlineUsers([]);
+
+    //             console.log("BEFORE NAVIGATE:", {
+    //                 user: null,
+    //                 isAuthenticated: false,
+    //             });
+
+    //         }
+
+    //         return data;
+
+    //     } catch (error) {
+    //         console.error("Logout Error:", error);
+
+    //         return {
+    //             success: false,
+    //             message: "Logout failed",
+    //         };
+    //     }
+    // };
+
     const logout = async () => {
         try {
             if (socket.connected) {
@@ -75,18 +112,9 @@ export const AuthProvider = ({ children }) => {
             console.log("LOGOUT RESPONSE:", data);
 
             if (data.success) {
-
-                navigate("/", { replace: true });
-
-                setUser(null);
-                setIsAuthenticated(false);
-                setOnlineUsers([]);
-
-                console.log("BEFORE NAVIGATE:", {
-                    user: null,
-                    isAuthenticated: false,
-                });
-
+                // Backend cookie clear ho chuki hai.
+                // Full reload ke saath directly landing page par jao.
+                window.location.replace("/");
             }
 
             return data;
@@ -100,7 +128,6 @@ export const AuthProvider = ({ children }) => {
             };
         }
     };
-
 
     const updateProfile = async (profileData) => {
         try {
