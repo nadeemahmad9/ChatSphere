@@ -75,6 +75,9 @@ export const AuthProvider = ({ children }) => {
             console.log("LOGOUT RESPONSE:", data);
 
             if (data.success) {
+
+                navigate("/", { replace: true });
+
                 setUser(null);
                 setIsAuthenticated(false);
                 setOnlineUsers([]);
@@ -84,7 +87,6 @@ export const AuthProvider = ({ children }) => {
                     isAuthenticated: false,
                 });
 
-                navigate("/", { replace: true });
             }
 
             return data;
