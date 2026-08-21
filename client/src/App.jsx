@@ -33,9 +33,7 @@ function App() {
       <Route
         path="/"
         element={
-          <div className="min-h-screen bg-red-500 flex items-center justify-center text-white text-4xl">
-            AUTH LANDING ROUTE
-          </div>
+          <AuthLanding />
         }
       />
 
