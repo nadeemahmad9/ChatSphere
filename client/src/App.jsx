@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { socket } from "./socket/socket";
 import { Routes, Route } from "react-router-dom";
 
@@ -7,7 +7,6 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { AuthLanding } from "./pages/AuthLanding";
 
-import { AuthContext } from "./context/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { PublicRoute } from "./components/PublicRoute";
 
@@ -25,15 +24,10 @@ function App() {
     };
   }, []);
 
-  const { user, loading, isAuthenticated } =
-    useContext(AuthContext);
-
   return (
     <Routes>
 
-      {/* =========================
-                AUTH LANDING
-            ========================= */}
+      {/* Landing */}
       <Route
         path="/"
         element={
@@ -43,21 +37,15 @@ function App() {
         }
       />
 
-      {/* =========================
-                MOBILE LOGIN
-            ========================= */}
+      {/* Mobile Login */}
       <Route
         path="/mobile-login"
         element={
-          <div>
-            Mobile Login Coming Soon
-          </div>
+          <div>Mobile Login Coming Soon</div>
         }
       />
 
-      {/* =========================
-                LOGIN
-            ========================= */}
+      {/* Login */}
       <Route
         path="/login"
         element={
@@ -67,9 +55,7 @@ function App() {
         }
       />
 
-      {/* =========================
-                REGISTER
-            ========================= */}
+      {/* Register */}
       <Route
         path="/register"
         element={
@@ -79,9 +65,7 @@ function App() {
         }
       />
 
-      {/* =========================
-                PROTECTED HOME
-            ========================= */}
+      {/* Protected Home */}
       <Route
         path="/home"
         element={
