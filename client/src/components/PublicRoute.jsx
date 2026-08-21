@@ -6,6 +6,12 @@ import { AuthContext } from "../context/AuthContext";
 export const PublicRoute = ({ children }) => {
     const { loading, isAuthenticated } = useContext(AuthContext);
 
+    console.log("PUBLIC ROUTE:", {
+        loading,
+        isAuthenticated,
+        path: window.location.pathname,
+    });
+
     if (loading) {
         return (
             <div className="flex min-h-screen items-center justify-center bg-slate-950">

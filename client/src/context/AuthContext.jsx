@@ -78,6 +78,11 @@ export const AuthProvider = ({ children }) => {
                 setIsAuthenticated(false);
                 setOnlineUsers([]);
 
+                console.log("BEFORE NAVIGATE:", {
+                    user: null,
+                    isAuthenticated: false,
+                });
+
                 navigate("/", { replace: true });
             }
 
