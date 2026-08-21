@@ -1,3 +1,5 @@
+console.log("🚀 NEW APP.JSX LOADED");
+
 import { useEffect } from "react";
 import { socket } from "./socket/socket";
 import { Routes, Route } from "react-router-dom";
