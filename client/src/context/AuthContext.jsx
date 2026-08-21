@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getCurrentUser, login as loginService, logout as logoutService, updateProfile as updateProfileService, updateProfilePicture as updateProfilePictureService, } from "../services/authService";
 import { socket } from "../socket/socket";
 
@@ -12,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [onlineUsers, setOnlineUsers] = useState([]);
 
+    const navigate = useNavigate();
 
     const checkAuth = async () => {
 
@@ -63,16 +65,20 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            // Socket connection close karo
             if (socket.connected) {
                 socket.disconnect();
             }
+
             const data = await logoutService();
+
+            console.log("LOGOUT RESPONSE:", data);
 
             if (data.success) {
                 setUser(null);
                 setIsAuthenticated(false);
                 setOnlineUsers([]);
+
+                navigate("/", { replace: true });
             }
 
             return data;

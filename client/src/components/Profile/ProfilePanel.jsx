@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import {
     ArrowLeft,
     Camera,
@@ -27,14 +27,14 @@ const ProfilePanel = ({ onClose }) => {
         setBio(user?.bio || "");
     }, [user]);
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const handleLogout = async () => {
-        const data = await logout();
+        await logout();
 
-        if (data.success) {
-            navigate("/");
-        }
+        // if (data.success) {
+        //     navigate("/");
+        // }
     };
 
     // =========================
@@ -365,7 +365,7 @@ const ProfilePanel = ({ onClose }) => {
                     <div className="mt-7 border-t border-slate-800/80 px-3 py-5 sm:px-4">
                         <button
                             type="button"
-                            onClick={handleLogout}
+                            onClick={logout}
                             className="flex mx-auto items-center  justify-center gap-2 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-400 transition-all duration-200 hover:bg-red-500/15 hover:text-red-300 active:scale-[0.99]"
                         >
                             <LogOut size={18} />
