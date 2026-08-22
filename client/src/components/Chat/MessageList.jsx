@@ -11,7 +11,7 @@ const MessageList = () => {
         markMessagesAsSeen,
         isSearchingMessages,
         messageSearchQuery,
-        searchResults,
+        searchResults = [],
         searchResultIndex,
         setSearchResultIndex,
     } = useChat();

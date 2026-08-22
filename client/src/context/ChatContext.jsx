@@ -27,6 +27,21 @@ export const ChatProvider = ({ children }) => {
     const [messageSearchQuery, setMessageSearchQuery] = useState("");
     const [searchResultIndex, setSearchResultIndex] = useState(0);
 
+
+    const searchResults = messages.filter((message) => {
+        if (!messageSearchQuery.trim()) {
+            return false;
+        }
+
+        if (message.isDeleted) {
+            return false;
+        }
+
+        return message.text
+            ?.toLowerCase()
+            .includes(messageSearchQuery.trim().toLowerCase());
+    });
+
     const inputRef = useRef(null);
 
     const focusMessageInput = () => {
