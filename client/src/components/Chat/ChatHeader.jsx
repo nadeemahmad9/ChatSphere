@@ -23,8 +23,8 @@ const ChatHeader = () => {
         setIsSearchingMessages,
         messageSearchQuery,
         setMessageSearchQuery,
-        searchResults,
-        searchResultIndex,
+        searchResults = [],
+        searchResultIndex = 0,
         nextSearchResult,
         previousSearchResult,
     } = useChat();
