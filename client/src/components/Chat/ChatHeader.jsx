@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useChat } from "../../context/ChatContext";
 import {
     ArrowLeft,
@@ -30,9 +30,32 @@ const ChatHeader = () => {
     } = useChat();
 
     const [showMenu, setShowMenu] = useState(false);
-
+    const menuRef = useRef(null);
     const isOnline = onlineUsers.includes(selectedUser?._id);
 
+
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(event.target)
+            ) {
+                setShowMenu(false);
+            }
+        };
+
+        document.addEventListener(
+            "mousedown",
+            handleOutsideClick
+        );
+
+        return () => {
+            document.removeEventListener(
+                "mousedown",
+                handleOutsideClick
+            );
+        };
+    }, []);
     // =========================
     // Close Search
     // =========================
@@ -417,7 +440,9 @@ const ChatHeader = () => {
                         {/* =========================
                             More Options
                         ========================= */}
-                        <div className="relative">
+                        <div
+                            ref={menuRef}
+                            className="relative">
 
                             <button
                                 type="button"
