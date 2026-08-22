@@ -895,6 +895,8 @@ export const ChatProvider = ({ children }) => {
                 searchResults,
                 searchResultIndex,
                 setSearchResultIndex,
+                nextSearchResult,
+                previousSearchResult,
 
                 clearMessageSearch,
             }}
