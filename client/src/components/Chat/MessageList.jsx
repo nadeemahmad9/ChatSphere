@@ -9,6 +9,10 @@ const MessageList = () => {
         selectedUser,
         typingUser,
         markMessagesAsSeen,
+        isSearchingMessages,
+        messageSearchQuery,
+        searchResultIndex,
+        setSearchResultIndex,
     } = useChat();
 
     const [showNewMessageButton, setShowNewMessageButton] =
@@ -91,6 +95,53 @@ const MessageList = () => {
         }, 2000);
     };
 
+
+    const searchResults = messages.filter((message) => {
+        if (!messageSearchQuery.trim()) {
+            return false;
+        }
+
+        if (message.isDeleted) {
+            return false;
+        }
+
+        return message.text
+            ?.toLowerCase()
+            .includes(messageSearchQuery.trim().toLowerCase());
+    });
+
+    const currentSearchMessage =
+        searchResults[searchResultIndex] || null;
+
+
+    //Previous / Next navigation
+    const goToNextSearchResult = () => {
+        if (searchResults.length === 0) {
+            return;
+        }
+
+        setSearchResultIndex((prev) => {
+            if (prev >= searchResults.length - 1) {
+                return 0;
+            }
+
+            return prev + 1;
+        });
+    };
+
+    const goToPreviousSearchResult = () => {
+        if (searchResults.length === 0) {
+            return;
+        }
+
+        setSearchResultIndex((prev) => {
+            if (prev <= 0) {
+                return searchResults.length - 1;
+            }
+
+            return prev - 1;
+        });
+    };
     // =========================
     // Auto scroll
     // =========================
@@ -105,6 +156,9 @@ const MessageList = () => {
             setShowNewMessageButton(true);
         }
     }, [messages, typingUser]);
+
+
+
 
     // =========================
     // Chat open → scroll to latest
@@ -142,6 +196,45 @@ const MessageList = () => {
         }
     }, [selectedUser, messages]);
 
+
+    useEffect(() => {
+        if (!isSearchingMessages) {
+            return;
+        }
+
+        if (!currentSearchMessage) {
+            return;
+        }
+
+        const element = document.getElementById(
+            `message-${currentSearchMessage._id}`
+        );
+
+        if (!element) {
+            return;
+        }
+
+        element.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+        });
+
+        setHighlightedMessageId(
+            currentSearchMessage._id
+        );
+
+        const timer = setTimeout(() => {
+            setHighlightedMessageId(null);
+        }, 1500);
+
+        return () => clearTimeout(timer);
+
+    }, [
+        isSearchingMessages,
+        searchResultIndex,
+        messageSearchQuery,
+        messages,
+    ]);
     // =========================
     // Scroll to bottom
     // =========================

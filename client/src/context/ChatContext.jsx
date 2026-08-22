@@ -23,6 +23,9 @@ export const ChatProvider = ({ children }) => {
     const { isAuthenticated, user } = useContext(AuthContext);
     const [replyingTo, setReplyingTo] = useState(null);
 
+    const [isSearchingMessages, setIsSearchingMessages] = useState(false);
+    const [messageSearchQuery, setMessageSearchQuery] = useState("");
+    const [searchResultIndex, setSearchResultIndex] = useState(0);
 
     const inputRef = useRef(null);
 
@@ -30,6 +33,12 @@ export const ChatProvider = ({ children }) => {
         setTimeout(() => {
             inputRef.current?.focus();
         }, 0);
+    };
+
+    const clearMessageSearch = () => {
+        setIsSearchingMessages(false);
+        setMessageSearchQuery("");
+        setSearchResultIndex(0);
     };
 
     // =========================
@@ -322,56 +331,6 @@ export const ChatProvider = ({ children }) => {
     //======================
     // react to message
     //=======================
-
-    // const reactToMessage = async (messageId, emoji) => {
-    //     try {
-
-    //         console.log("========== REACT FRONTEND ==========");
-    //         console.log("Message ID:", messageId);
-    //         console.log("Emoji:", emoji);
-
-    //         const data = await reactToMessageApi(
-    //             messageId,
-    //             emoji
-    //         );
-
-    //         if (!data.success) {
-    //             console.error(
-    //                 "Reaction failed:",
-    //                 data.message
-    //             );
-
-    //             return data;
-    //         }
-
-    //         setMessages((prevMessages) =>
-    //             prevMessages.map((message) =>
-    //                 message._id === messageId
-    //                     ? {
-    //                         ...message,
-    //                         reactions:
-    //                             data.messageData.reactions,
-    //                     }
-    //                     : message
-    //             )
-    //         );
-
-    //         return data;
-
-    //     } catch (error) {
-    //         console.error(
-    //             "React Message Error:",
-    //             error
-    //         );
-
-    //         return {
-    //             success: false,
-    //             message: "Failed to react to message",
-    //         };
-    //     }
-    // };
-
-
     const reactToMessage = async (messageId, emoji) => {
         try {
             console.log("========== REACT FRONTEND ==========");
@@ -880,6 +839,20 @@ export const ChatProvider = ({ children }) => {
                 inputRef,
                 focusMessageInput,
                 reactToMessage,
+
+                // =========================
+                // Message Search
+                // =========================
+                isSearchingMessages,
+                setIsSearchingMessages,
+
+                messageSearchQuery,
+                setMessageSearchQuery,
+
+                searchResultIndex,
+                setSearchResultIndex,
+
+                clearMessageSearch,
             }}
         >
             {children}
