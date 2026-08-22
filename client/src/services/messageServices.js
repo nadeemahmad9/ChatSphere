@@ -183,7 +183,7 @@ export const reactToMessageApi = async (messageId, emoji) => {
 export const clearChatApi = async (userId) => {
     try {
         const response = await fetch(
-            `/api/messages/clear/${userId}`,
+            `${API_URL}/clear/${userId}`,
             {
                 method: "DELETE",
                 credentials: "include",
