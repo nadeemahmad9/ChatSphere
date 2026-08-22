@@ -783,3 +783,47 @@ if (
     }
 };
 
+
+//Clear Chat
+export const clearChat = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const otherUserId = req.params.userId;
+
+        await Message.updateMany(
+            {
+                $or: [
+                    {
+                        sender: userId,
+                        receiver: otherUserId,
+                    },
+                    {
+                        sender: otherUserId,
+                        receiver: userId,
+                    },
+                ],
+                deletedFor: {
+                    $ne: userId,
+                },
+            },
+            {
+                $addToSet: {
+                    deletedFor: userId,
+                },
+            }
+        );
+
+        res.status(200).json({
+            success: true,
+            message: "Chat cleared successfully",
+        });
+
+    } catch (error) {
+        console.error("Clear Chat Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to clear chat",
+        });
+    }
+};

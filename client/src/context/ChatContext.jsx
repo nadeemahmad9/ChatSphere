@@ -1,6 +1,6 @@
 
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { fetchMessages, markMessagesAsSeenApi, sendMessageApi, deleteMessageForEveryone as deleteMessageForEveryoneApi, deleteMessageForMe as deleteMessageForMeApi, reactToMessageApi, } from "../services/messageServices";
+import { fetchMessages, markMessagesAsSeenApi, sendMessageApi, deleteMessageForEveryone as deleteMessageForEveryoneApi, deleteMessageForMe as deleteMessageForMeApi, reactToMessageApi, clearChatApi } from "../services/messageServices";
 import { socket } from "../socket/socket";
 import { fetchUsers } from "../services/userServices";
 import { AuthContext } from "./AuthContext";
@@ -343,6 +343,29 @@ export const ChatProvider = ({ children }) => {
         }
     };
 
+    //clear Chat 
+    const clearChat = async (userId) => {
+        try {
+            const data = await clearChatApi(userId);
+
+            if (!data.success) {
+                return data;
+            }
+
+            // Current chat ke messages clear
+            setMessages([]);
+
+            return data;
+
+        } catch (error) {
+            console.error("Clear Chat Error:", error);
+
+            return {
+                success: false,
+                message: "Failed to clear chat",
+            };
+        }
+    };
     //======================
     // react to message
     //=======================
@@ -899,6 +922,7 @@ export const ChatProvider = ({ children }) => {
                 previousSearchResult,
 
                 clearMessageSearch,
+                clearChat,
             }}
         >
             {children}

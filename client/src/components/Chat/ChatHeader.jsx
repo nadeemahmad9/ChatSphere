@@ -27,12 +27,13 @@ const ChatHeader = () => {
         searchResultIndex = 0,
         nextSearchResult,
         previousSearchResult,
+        clearChat,
     } = useChat();
 
     const [showMenu, setShowMenu] = useState(false);
     const menuRef = useRef(null);
     const isOnline = onlineUsers.includes(selectedUser?._id);
-
+    const [showClearChatModal, setShowClearChatModal] = useState(false);
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -65,8 +66,9 @@ const ChatHeader = () => {
     };
 
     return (
-        <header
-            className="
+        <>
+            <header
+                className="
                 flex
                 h-[68px]
                 items-center
@@ -76,18 +78,18 @@ const ChatHeader = () => {
                 px-2
                 sm:px-4
             "
-        >
-            {/* =====================================================
+            >
+                {/* =====================================================
                 SEARCH MODE
             ====================================================== */}
-            {isSearchingMessages ? (
-                <div className="flex w-full items-center gap-1.5 sm:gap-2">
+                {isSearchingMessages ? (
+                    <div className="flex w-full items-center gap-1.5 sm:gap-2">
 
-                    {/* Close Search */}
-                    <button
-                        type="button"
-                        onClick={closeSearch}
-                        className="
+                        {/* Close Search */}
+                        <button
+                            type="button"
+                            onClick={closeSearch}
+                            className="
                             flex
                             h-10
                             w-10
@@ -102,14 +104,14 @@ const ChatHeader = () => {
                             hover:text-white
                             active:scale-95
                         "
-                        aria-label="Close search"
-                    >
-                        <X size={21} strokeWidth={2} />
-                    </button>
+                            aria-label="Close search"
+                        >
+                            <X size={21} strokeWidth={2} />
+                        </button>
 
-                    {/* Search Input */}
-                    <div
-                        className="
+                        {/* Search Input */}
+                        <div
+                            className="
                             flex
                             min-w-0
                             flex-1
@@ -118,20 +120,20 @@ const ChatHeader = () => {
                             bg-slate-800/70
                             px-3
                         "
-                    >
-                        <span className="mr-2 text-slate-500">
-                            🔍
-                        </span>
+                        >
+                            <span className="mr-2 text-slate-500">
+                                🔍
+                            </span>
 
-                        <input
-                            type="text"
-                            autoFocus
-                            value={messageSearchQuery}
-                            onChange={(e) => {
-                                setMessageSearchQuery(e.target.value);
-                            }}
-                            placeholder="Search messages..."
-                            className="
+                            <input
+                                type="text"
+                                autoFocus
+                                value={messageSearchQuery}
+                                onChange={(e) => {
+                                    setMessageSearchQuery(e.target.value);
+                                }}
+                                placeholder="Search messages..."
+                                className="
                                 min-w-0
                                 flex-1
                                 bg-transparent
@@ -141,16 +143,16 @@ const ChatHeader = () => {
                                 outline-none
                                 placeholder:text-slate-500
                             "
-                        />
+                            />
 
-                        {/* Clear Search Text */}
-                        {messageSearchQuery && (
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setMessageSearchQuery("");
-                                }}
-                                className="
+                            {/* Clear Search Text */}
+                            {messageSearchQuery && (
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setMessageSearchQuery("");
+                                    }}
+                                    className="
                                     flex
                                     h-7
                                     w-7
@@ -162,39 +164,39 @@ const ChatHeader = () => {
                                     hover:bg-slate-700
                                     hover:text-white
                                 "
-                                aria-label="Clear search"
-                            >
-                                <X size={15} />
-                            </button>
-                        )}
-                    </div>
+                                    aria-label="Clear search"
+                                >
+                                    <X size={15} />
+                                </button>
+                            )}
+                        </div>
 
-                    {/* =========================
+                        {/* =========================
                         Search Result Count
                     ========================= */}
-                    {messageSearchQuery.trim() && (
-                        <span
-                            className="
+                        {messageSearchQuery.trim() && (
+                            <span
+                                className="
             shrink-0
             whitespace-nowrap
             text-xs
             text-slate-400
         "
-                        >
-                            {searchResults.length > 0
-                                ? `${searchResultIndex + 1}/${searchResults.length}`
-                                : "0/0"}
-                        </span>
-                    )}
+                            >
+                                {searchResults.length > 0
+                                    ? `${searchResultIndex + 1}/${searchResults.length}`
+                                    : "0/0"}
+                            </span>
+                        )}
 
-                    {/* =========================
+                        {/* =========================
                         Previous Result
                     ========================= */}
-                    <button
-                        type="button"
-                        onClick={previousSearchResult}
-                        disabled={searchResults.length === 0}
-                        className="
+                        <button
+                            type="button"
+                            onClick={previousSearchResult}
+                            disabled={searchResults.length === 0}
+                            className="
         flex
         h-9
         w-9
@@ -209,19 +211,19 @@ const ChatHeader = () => {
         disabled:cursor-not-allowed
         disabled:opacity-30
     "
-                        aria-label="Previous search result"
-                    >
-                        <ChevronUp size={19} />
-                    </button>
+                            aria-label="Previous search result"
+                        >
+                            <ChevronUp size={19} />
+                        </button>
 
-                    {/* =========================
+                        {/* =========================
                         Next Result
                     ========================= */}
-                    <button
-                        type="button"
-                        onClick={nextSearchResult}
-                        disabled={searchResults.length === 0}
-                        className="
+                        <button
+                            type="button"
+                            onClick={nextSearchResult}
+                            disabled={searchResults.length === 0}
+                            className="
         flex
         h-8
         w-8
@@ -236,27 +238,27 @@ const ChatHeader = () => {
         disabled:cursor-not-allowed
         disabled:opacity-30
     "
-                        aria-label="Next search result"
-                    >
-                        <ChevronDown size={19} />
-                    </button>
-                </div>
-            ) : (
+                            aria-label="Next search result"
+                        >
+                            <ChevronDown size={19} />
+                        </button>
+                    </div>
+                ) : (
 
-                /* =====================================================
-                    NORMAL CHAT HEADER
-                ====================================================== */
-                <>
-                    {/* =========================
+                    /* =====================================================
+                        NORMAL CHAT HEADER
+                    ====================================================== */
+                    <>
+                        {/* =========================
                         Left Side
                     ========================= */}
-                    <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
+                        <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
 
-                        {/* Back Button - Mobile Only */}
-                        <button
-                            type="button"
-                            onClick={() => setSelectedUser(null)}
-                            className="
+                            {/* Back Button - Mobile Only */}
+                            <button
+                                type="button"
+                                onClick={() => setSelectedUser(null)}
+                                className="
                                 flex
                                 h-10
                                 w-10
@@ -272,19 +274,19 @@ const ChatHeader = () => {
                                 active:scale-95
                                 md:hidden
                             "
-                            aria-label="Back to conversations"
-                        >
-                            <ArrowLeft
-                                size={21}
-                                strokeWidth={2}
-                            />
-                        </button>
+                                aria-label="Back to conversations"
+                            >
+                                <ArrowLeft
+                                    size={21}
+                                    strokeWidth={2}
+                                />
+                            </button>
 
-                        {/* Avatar */}
-                        <div className="relative shrink-0">
+                            {/* Avatar */}
+                            <div className="relative shrink-0">
 
-                            <div
-                                className="
+                                <div
+                                    className="
                                     flex
                                     h-11
                                     w-11
@@ -301,26 +303,26 @@ const ChatHeader = () => {
                                     sm:h-12
                                     sm:w-12
                                 "
-                            >
-                                {selectedUser?.profilePic ? (
-                                    <img
-                                        src={selectedUser.profilePic}
-                                        alt={
-                                            selectedUser?.name ||
-                                            "User"
-                                        }
-                                        className="h-full w-full object-cover"
-                                    />
-                                ) : (
-                                    selectedUser?.name
-                                        ?.charAt(0)
-                                        ?.toUpperCase()
-                                )}
-                            </div>
+                                >
+                                    {selectedUser?.profilePic ? (
+                                        <img
+                                            src={selectedUser.profilePic}
+                                            alt={
+                                                selectedUser?.name ||
+                                                "User"
+                                            }
+                                            className="h-full w-full object-cover"
+                                        />
+                                    ) : (
+                                        selectedUser?.name
+                                            ?.charAt(0)
+                                            ?.toUpperCase()
+                                    )}
+                                </div>
 
-                            {/* Online Indicator */}
-                            <span
-                                className={`
+                                {/* Online Indicator */}
+                                <span
+                                    className={`
                                     absolute
                                     bottom-0
                                     right-0
@@ -332,19 +334,19 @@ const ChatHeader = () => {
                                     transition-colors
                                     duration-200
                                     ${isOnline
-                                        ? "bg-emerald-500"
-                                        : "bg-slate-500"
-                                    }
+                                            ? "bg-emerald-500"
+                                            : "bg-slate-500"
+                                        }
                                 `}
-                            />
+                                />
 
-                        </div>
+                            </div>
 
-                        {/* User Info */}
-                        <div className="min-w-0">
+                            {/* User Info */}
+                            <div className="min-w-0">
 
-                            <h2
-                                className="
+                                <h2
+                                    className="
                                     max-w-[150px]
                                     truncate
                                     text-[14px]
@@ -354,102 +356,102 @@ const ChatHeader = () => {
                                     sm:max-w-[250px]
                                     sm:text-[15px]
                                 "
-                            >
-                                {selectedUser?.name}
-                            </h2>
+                                >
+                                    {selectedUser?.name}
+                                </h2>
 
-                            <p
-                                className={`
+                                <p
+                                    className={`
                                     text-[11px]
                                     leading-4
                                     transition-colors
                                     duration-200
                                     sm:text-xs
                                     ${isOnline
-                                        ? "text-emerald-400"
-                                        : "text-slate-500"
-                                    }
+                                            ? "text-emerald-400"
+                                            : "text-slate-500"
+                                        }
                                 `}
-                            >
-                                {isOnline
-                                    ? "online"
-                                    : "offline"}
-                            </p>
+                                >
+                                    {isOnline
+                                        ? "online"
+                                        : "offline"}
+                                </p>
+
+                            </div>
 
                         </div>
 
-                    </div>
-
-                    {/* =========================
+                        {/* =========================
                         Right Side
                     ========================= */}
-                    <div className="flex shrink-0 items-center gap-0.5 sm:gap-1">
+                        <div className="flex shrink-0 items-center gap-0.5 sm:gap-1">
 
-                        {/* Audio Call - Desktop */}
-                        <button
-                            type="button"
-                            className="
-                                hidden
-                                h-10
-                                w-10
-                                items-center
-                                justify-center
-                                rounded-full
-                                text-slate-400
-                                transition-all
-                                duration-200
-                                hover:bg-slate-800
-                                hover:text-white
-                                active:scale-95
-                                md:flex
-                            "
-                            aria-label="Audio Call"
-                        >
-                            <Phone
-                                size={19}
-                                strokeWidth={2}
-                            />
-                        </button>
-
-                        {/* Video Call - Desktop */}
-                        <button
-                            type="button"
-                            className="
-                                hidden
-                                h-10
-                                w-10
-                                items-center
-                                justify-center
-                                rounded-full
-                                text-slate-400
-                                transition-all
-                                duration-200
-                                hover:bg-slate-800
-                                hover:text-white
-                                active:scale-95
-                                md:flex
-                            "
-                            aria-label="Video Call"
-                        >
-                            <Video
-                                size={20}
-                                strokeWidth={2}
-                            />
-                        </button>
-
-                        {/* =========================
-                            More Options
-                        ========================= */}
-                        <div
-                            ref={menuRef}
-                            className="relative">
-
+                            {/* Audio Call - Desktop */}
                             <button
                                 type="button"
-                                onClick={() =>
-                                    setShowMenu((prev) => !prev)
-                                }
                                 className="
+                                hidden
+                                h-10
+                                w-10
+                                items-center
+                                justify-center
+                                rounded-full
+                                text-slate-400
+                                transition-all
+                                duration-200
+                                hover:bg-slate-800
+                                hover:text-white
+                                active:scale-95
+                                md:flex
+                            "
+                                aria-label="Audio Call"
+                            >
+                                <Phone
+                                    size={19}
+                                    strokeWidth={2}
+                                />
+                            </button>
+
+                            {/* Video Call - Desktop */}
+                            <button
+                                type="button"
+                                className="
+                                hidden
+                                h-10
+                                w-10
+                                items-center
+                                justify-center
+                                rounded-full
+                                text-slate-400
+                                transition-all
+                                duration-200
+                                hover:bg-slate-800
+                                hover:text-white
+                                active:scale-95
+                                md:flex
+                            "
+                                aria-label="Video Call"
+                            >
+                                <Video
+                                    size={20}
+                                    strokeWidth={2}
+                                />
+                            </button>
+
+                            {/* =========================
+                            More Options
+                        ========================= */}
+                            <div
+                                ref={menuRef}
+                                className="relative">
+
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        setShowMenu((prev) => !prev)
+                                    }
+                                    className="
                                     flex
                                     h-10
                                     w-10
@@ -463,20 +465,20 @@ const ChatHeader = () => {
                                     hover:text-white
                                     active:scale-95
                                 "
-                                aria-label="More Options"
-                            >
-                                <MoreVertical
-                                    size={21}
-                                    strokeWidth={2}
-                                />
-                            </button>
+                                    aria-label="More Options"
+                                >
+                                    <MoreVertical
+                                        size={21}
+                                        strokeWidth={2}
+                                    />
+                                </button>
 
-                            {/* =========================
+                                {/* =========================
                                 Dropdown
                             ========================= */}
-                            {showMenu && (
-                                <div
-                                    className="
+                                {showMenu && (
+                                    <div
+                                        className="
                                         absolute
                                         right-0
                                         top-12
@@ -491,17 +493,17 @@ const ChatHeader = () => {
                                         shadow-2xl
                                         shadow-black/40
                                     "
-                                >
+                                    >
 
-                                    {/* Search Messages */}
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            setShowMenu(false);
-                                            setIsSearchingMessages(true);
-                                            setMessageSearchQuery("");
-                                        }}
-                                        className="
+                                        {/* Search Messages */}
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setShowMenu(false);
+                                                setIsSearchingMessages(true);
+                                                setMessageSearchQuery("");
+                                            }}
+                                            className="
                                             flex
                                             w-full
                                             items-center
@@ -514,23 +516,23 @@ const ChatHeader = () => {
                                             transition-colors
                                             hover:bg-slate-800
                                         "
-                                    >
-                                        🔍
-                                        <span>
-                                            Search messages
-                                        </span>
-                                    </button>
+                                        >
+                                            🔍
+                                            <span>
+                                                Search messages
+                                            </span>
+                                        </button>
 
-                                    {/* Mute */}
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            console.log(
-                                                "Mute notifications clicked"
-                                            );
-                                            setShowMenu(false);
-                                        }}
-                                        className="
+                                        {/* Mute */}
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                console.log(
+                                                    "Mute notifications clicked"
+                                                );
+                                                setShowMenu(false);
+                                            }}
+                                            className="
                                             flex
                                             w-full
                                             items-center
@@ -543,52 +545,48 @@ const ChatHeader = () => {
                                             transition-colors
                                             hover:bg-slate-800
                                         "
-                                    >
-                                        🔔
-                                        <span>
-                                            Mute notifications
-                                        </span>
-                                    </button>
+                                        >
+                                            🔔
+                                            <span>
+                                                Mute notifications
+                                            </span>
+                                        </button>
 
-                                    {/* Clear Chat */}
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            console.log(
-                                                "Clear chat clicked"
-                                            );
-                                            setShowMenu(false);
-                                        }}
-                                        className="
-                                            flex
-                                            w-full
-                                            items-center
-                                            gap-3
-                                            px-4
-                                            py-3
-                                            text-left
-                                            text-sm
-                                            text-slate-200
-                                            transition-colors
-                                            hover:bg-slate-800
-                                        "
-                                    >
-                                        🗑️
-                                        <span>
-                                            Clear chat
-                                        </span>
-                                    </button>
+                                        {/* Clear Chat */}
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setShowMenu(false);
+                                                setShowClearChatModal(true);
+                                            }}
+                                            className="
+        flex
+        w-full
+        items-center
+        gap-3
+        px-4
+        py-3
+        text-left
+        text-sm
+        text-slate-200
+        transition-colors
+        hover:bg-slate-800
+    "
+                                        >
+                                            🗑️
+                                            <span>Clear chat</span>
+                                        </button>
 
-                                    {/* Block */}
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            console.log(
-                                                "Block user clicked"
-                                            );
-                                            setShowMenu(false);
-                                        }}
-                                        className="
+                                        {/* Block */}
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                console.log(
+                                                    "Block user clicked"
+                                                );
+                                                setShowMenu(false);
+                                            }}
+                                            className="
                                             flex
                                             w-full
                                             items-center
@@ -601,24 +599,113 @@ const ChatHeader = () => {
                                             transition-colors
                                             hover:bg-slate-800
                                         "
-                                    >
-                                        🚫
-                                        <span>
-                                            Block user
-                                        </span>
-                                    </button>
+                                        >
+                                            🚫
+                                            <span>
+                                                Block user
+                                            </span>
+                                        </button>
 
-                                </div>
-                            )}
+                                    </div>
+                                )}
+
+                            </div>
 
                         </div>
+                    </>
+                )}
 
+            </header>
+            {showClearChatModal && (
+                <div
+                    className="
+            fixed
+            inset-0
+            z-[100]
+            flex
+            items-center
+            justify-center
+            bg-black/60
+            px-4
+            backdrop-blur-sm
+        "
+                    onClick={() => setShowClearChatModal(false)}
+                >
+                    <div
+                        className="
+                w-full
+                max-w-sm
+                rounded-2xl
+                border
+                border-slate-700
+                bg-slate-900
+                p-5
+                shadow-2xl
+            "
+                        onClick={(event) => event.stopPropagation()}
+                    >
+                        <h3 className="text-base font-semibold text-white">
+                            Clear chat?
+                        </h3>
+
+                        <p className="mt-2 text-sm leading-5 text-slate-400">
+                            Are you sure you want to clear this chat?
+                            This will remove all messages from your chat.
+                        </p>
+
+                        <div className="mt-5 flex justify-end gap-2">
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setShowClearChatModal(false)
+                                }
+                                className="
+                        rounded-lg
+                        px-4
+                        py-2
+                        text-sm
+                        font-medium
+                        text-slate-300
+                        transition-colors
+                        hover:bg-slate-800
+                    "
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={async () => {
+                                    const data = await clearChat(
+                                        selectedUser._id
+                                    );
+
+                                    if (data.success) {
+                                        setShowClearChatModal(false);
+                                    }
+                                }}
+                                className="
+                        rounded-lg
+                        bg-red-500
+                        px-4
+                        py-2
+                        text-sm
+                        font-medium
+                        text-white
+                        transition-colors
+                        hover:bg-red-600
+                    "
+                            >
+                                Clear chat
+                            </button>
+                        </div>
                     </div>
-                </>
+                </div>
             )}
+        </>
 
-        </header>
-    );
+
+    )
 };
 
 export default ChatHeader;

@@ -177,3 +177,27 @@ export const reactToMessageApi = async (messageId, emoji) => {
             };
         }
     };
+
+
+// ClearChat API
+export const clearChatApi = async (userId) => {
+    try {
+        const response = await fetch(
+            `/api/messages/clear/${userId}`,
+            {
+                method: "DELETE",
+                credentials: "include",
+            }
+        );
+
+        return await response.json();
+
+    } catch (error) {
+        console.error("Clear Chat API Error:", error);
+
+        return {
+            success: false,
+            message: "Failed to clear chat",
+        };
+    }
+};
