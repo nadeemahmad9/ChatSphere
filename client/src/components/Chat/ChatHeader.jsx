@@ -200,8 +200,8 @@ const ChatHeader = () => {
                         disabled={searchResults.length === 0}
                         className="
         flex
-        h-9
-        w-9
+        h-8
+        w-8
         shrink-0
         items-center
         justify-center
