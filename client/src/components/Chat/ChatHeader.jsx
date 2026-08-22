@@ -152,13 +152,11 @@ const ChatHeader = () => {
                     {messageSearchQuery.trim() && (
                         <span
                             className="
-                                hidden
-                                shrink-0
-                                whitespace-nowrap
-                                text-xs
-                                text-slate-400
-                                sm:block
-                            "
+            shrink-0
+            whitespace-nowrap
+            text-xs
+            text-slate-400
+        "
                         >
                             {searchResults.length > 0
                                 ? `${searchResultIndex + 1}/${searchResults.length}`
@@ -174,20 +172,20 @@ const ChatHeader = () => {
                         onClick={previousSearchResult}
                         disabled={searchResults.length === 0}
                         className="
-                            flex
-                            h-9
-                            w-9
-                            shrink-0
-                            items-center
-                            justify-center
-                            rounded-full
-                            text-slate-400
-                            transition-all
-                            hover:bg-slate-800
-                            hover:text-white
-                            disabled:cursor-not-allowed
-                            disabled:opacity-30
-                        "
+        flex
+        h-9
+        w-9
+        shrink-0
+        items-center
+        justify-center
+        rounded-full
+        text-slate-400
+        transition-all
+        hover:bg-slate-800
+        hover:text-white
+        disabled:cursor-not-allowed
+        disabled:opacity-30
+    "
                         aria-label="Previous search result"
                     >
                         <ChevronUp size={19} />
@@ -201,20 +199,20 @@ const ChatHeader = () => {
                         onClick={nextSearchResult}
                         disabled={searchResults.length === 0}
                         className="
-                            flex
-                            h-9
-                            w-9
-                            shrink-0
-                            items-center
-                            justify-center
-                            rounded-full
-                            text-slate-400
-                            transition-all
-                            hover:bg-slate-800
-                            hover:text-white
-                            disabled:cursor-not-allowed
-                            disabled:opacity-30
-                        "
+        flex
+        h-9
+        w-9
+        shrink-0
+        items-center
+        justify-center
+        rounded-full
+        text-slate-400
+        transition-all
+        hover:bg-slate-800
+        hover:text-white
+        disabled:cursor-not-allowed
+        disabled:opacity-30
+    "
                         aria-label="Next search result"
                     >
                         <ChevronDown size={19} />

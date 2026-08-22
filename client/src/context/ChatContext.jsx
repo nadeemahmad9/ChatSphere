@@ -370,6 +370,35 @@ export const ChatProvider = ({ children }) => {
         }
     };
 
+
+    const nextSearchResult = () => {
+        if (searchResults.length === 0) return;
+
+        setSearchResultIndex((prev) => {
+            if (prev >= searchResults.length - 1) {
+                return 0;
+            }
+
+            return prev + 1;
+        });
+    };
+
+    const previousSearchResult = () => {
+        if (searchResults.length === 0) return;
+
+        setSearchResultIndex((prev) => {
+            if (prev <= 0) {
+                return searchResults.length - 1;
+            }
+
+            return prev - 1;
+        });
+    };
+
+    useEffect(() => {
+        setSearchResultIndex(0);
+    }, [messageSearchQuery]);
+
     // =========================
     // Fetch Users on Mount
     // =========================

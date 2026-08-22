@@ -11,6 +11,7 @@ const MessageList = () => {
         markMessagesAsSeen,
         isSearchingMessages,
         messageSearchQuery,
+        searchResults,
         searchResultIndex,
         setSearchResultIndex,
     } = useChat();
@@ -197,31 +198,33 @@ const MessageList = () => {
     }, [selectedUser, messages]);
 
 
+    // =========================
+    // Navigate Search Result
+    // =========================
     useEffect(() => {
-        if (!isSearchingMessages) {
-            return;
-        }
+        if (!isSearchingMessages) return;
 
-        if (!currentSearchMessage) {
-            return;
-        }
+        if (!messageSearchQuery.trim()) return;
 
-        const element = document.getElementById(
-            `message-${currentSearchMessage._id}`
+        if (searchResults.length === 0) return;
+
+        const currentMessage =
+            searchResults[searchResultIndex];
+
+        if (!currentMessage?._id) return;
+
+        const messageElement = document.getElementById(
+            `message-${currentMessage._id}`
         );
 
-        if (!element) {
-            return;
-        }
+        if (!messageElement) return;
 
-        element.scrollIntoView({
+        messageElement.scrollIntoView({
             behavior: "smooth",
             block: "center",
         });
 
-        setHighlightedMessageId(
-            currentSearchMessage._id
-        );
+        setHighlightedMessageId(currentMessage._id);
 
         const timer = setTimeout(() => {
             setHighlightedMessageId(null);
@@ -231,9 +234,9 @@ const MessageList = () => {
 
     }, [
         isSearchingMessages,
-        searchResultIndex,
         messageSearchQuery,
-        messages,
+        searchResults,
+        searchResultIndex,
     ]);
     // =========================
     // Scroll to bottom
